@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohamad Yani, Ph.D – Robotics Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --sidebar-bg: #1a2340;
+      --sidebar-text: #d6dce8;
+      --accent: #ffffff;
+      --accent-main: #c8873a;
+      --text: #1e1e1e;
+      --muted: #6b6b6b;
+      --border: #ddd8ce;
+      --card-bg: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: 280px;
+      min-width: 280px;
+      background: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      padding: 40px 24px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .avatar-wrap {
+      width: 140px;
+      height: 140px;
+      min-width: 140px;
+      min-height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .avatar-wrap img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2a3a5c, #3d5a80);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: var(--accent);
+      font-family: 'Lora', serif;
+      font-weight: 600;
+    }
+
+    aside h1 {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-align: center;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    aside .tagline {
+      font-size: 0.78rem;
+      text-align: center;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      line-height: 1.4;
+    }
+
+    .sidebar-section { width: 100%; margin-bottom: 24px; }
+    .sidebar-section h3 {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      padding-bottom: 4px;
+    }
+    .sidebar-section a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 5px 0;
+      transition: color 0.2s;
+    }
+    .sidebar-section a:hover { color: var(--accent); }
+    .sidebar-section .icon { font-size: 0.9rem; width: 16px; text-align: center; }
+    .sidebar-section p { font-size: 0.84rem; line-height: 1.6; color: var(--sidebar-text); }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag {
+      background: rgba(74,127,165,0.2);
+      border: 1px solid rgba(74,127,165,0.4);
+      color: #a8c8e0;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    /* ── MAIN ── */
+    main { flex: 1; padding: 48px 52px; max-width: 860px; }
+    section { margin-bottom: 52px; }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: #1e1e1e;
+      border-bottom: 2px solid var(--accent-main);
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title .s-icon { font-size: 1.1rem; color: var(--accent-main); }
+
+    /* About */
+    .about-text { font-size: 1rem; line-height: 1.8; color: #1e1e1e; }
+    .about-text p { margin-bottom: 14px; }
+    .about-text strong { color: #1e1e1e; font-weight: 700; }
+
+    /* Publications */
+    .pub-list { display: flex; flex-direction: column; gap: 16px; }
+    .pub-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid #4a7fa5;
+      border-radius: 6px;
+      padding: 16px 20px;
+      transition: box-shadow 0.2s, border-left-color 0.2s;
+    }
+    .pub-card:hover {
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      border-left-color: var(--accent-main);
+    }
+    .pub-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-bottom: 7px;
+    }
+    .pub-badge.journal { background: #e8f0e8; color: #3a7a3a; }
+    .pub-badge.conf { background: #e8ecf4; color: #3a4a80; }
+    .pub-title {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1e1e1e;
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+    .pub-authors { font-size: 0.82rem; color: #1e1e1e; margin-bottom: 4px; line-height: 1.5; }
+    .pub-authors strong { color: #1e1e1e; font-weight: 700; }
+    .pub-venue { font-size: 0.82rem; font-style: italic; color: #1e1e1e; }
+
+    /* Awards */
+    .award-list { display: flex; flex-direction: column; gap: 12px; }
+    .award-item {
+      display: flex;
+      gap: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 18px;
+    }
+    .award-year { font-size: 0.8rem; font-weight: 700; color: #1e1e1e; min-width: 36px; padding-top: 2px; }
+    .award-text { font-size: 0.9rem; line-height: 1.6; color: #1e1e1e; }
+    .award-text strong { color: #1e1e1e; }
+
+    /* Education & Employment */
+    .edu-list { display: flex; flex-direction: column; gap: 14px; }
+    .edu-item {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-item:last-child { border-bottom: none; }
+    .edu-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-main);
+      margin-top: 5px;
+      min-width: 12px;
+    }
+    .edu-degree { font-size: 0.95rem; font-weight: 600; color: #1e1e1e; }
+    .edu-school { font-size: 0.85rem; color: #1e1e1e; margin-top: 2px; }
+    .edu-year { font-size: 0.78rem; color: #1e1e1e; font-weight: 600; margin-top: 2px; }
+
+    /* Teaching */
+    .teach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .teach-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .teach-card h4 { font-size: 0.9rem; font-weight: 600; color: #1e1e1e; margin-bottom: 5px; }
+    .teach-card p { font-size: 0.8rem; color: #1e1e1e; line-height: 1.5; }
+    .teach-card .semester { font-size: 0.72rem; color: #1e1e1e; font-weight: 600; margin-bottom: 4px; }
+
+    /* Research Projects */
+    .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .project-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.10); transform: translateY(-2px); }
+    .project-card img { width: 100%; height: 210px; object-fit: cover; object-position: center; display: block; }
+    .project-card-body { padding: 14px 16px; }
+    .project-card-body h4 { font-size: 0.92rem; font-weight: 600; color: #1e1e1e; margin-bottom: 5px; }
+    .project-card-body p { font-size: 0.8rem; color: #1e1e1e; line-height: 1.5; }
+    .project-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: #e8ecf4;
+      color: #3a4a80;
+      margin-bottom: 8px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      aside { width: 100%; height: auto; position: static; }
+      main { padding: 28px 20px; }
+      .teach-grid { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ SIDEBAR ══════════ -->
+<aside>
+  <div class="avatar-wrap">
+    <img src="images/profile.jpg" alt="Mohamad Yani"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="avatar-placeholder" style="display:none;">MY</div>
+  </div>
+
+  <h1>Mohamad Yani, Ph.D</h1>
+  <p class="tagline">Software Engineer in Robotics · Researcher · Lecturer</p>
+
+  <div class="sidebar-section">
+    <h3>Contact & Links</h3>
+    <a href="mailto:yani.muhammad97@gmail.com"><span class="icon">✉</span> yani.muhammad97@gmail.com</a>
+    <a href="mailto:mohamadyani@telkomuniversity.ac.id"><span class="icon">🎓</span> Telkom University</a>
+    <a href="https://www.linkedin.com/in/mohamad-yani-60958699/" target="_blank"><span class="icon">🔗</span> LinkedIn</a>
+    <a href="https://github.com/yani-rl-ai" target="_blank"><span class="icon">⌥</span> GitHub</a>
+    <a href="https://scholar.google.com/citations?user=zGrZthcAAAAJ&hl=en" target="_blank"><span class="icon">📄</span> Google Scholar</a>
+    <a href="tel:+628529796-0251"><span class="icon">📞</span> +62 852-9796-0251</a>
+    <a href="#"><span class="icon">📍</span> Surabaya, Indonesia</a>
+  </div>
+
+  <div class="sidebar-section">
+    <h3>Skills</h3>
+    <div class="skill-tags">
+      <span class="skill-tag">ROS</span>
+      <span class="skill-tag">ROS2</span>
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">C/C++</span>
+      <span class="skill-tag">Machine Learning</span>
+      <span class="skill-tag">Computer Vision</span>
+      <span class="skill-tag">Control Systems</span>
+      <span class="skill-tag">IoT</span>
+      <span class="skill-tag">MATLAB</span>
+      <span class="skill-tag">Deep RL</span>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <h3>Affiliation</h3>
+    <p>Department of Computer Engineering<br>Faculty of Electronics Engineering<br>Telkom University, Surabaya</p>
+  </div>
+</aside>
+
+<!-- ══════════ MAIN CONTENT ══════════ -->
+<main>
+
+  <!-- ABOUT -->
+  <section>
+    <h2 class="section-title"><span class="s-icon">◈</span> About Me</h2>
+    <div class="about-text">
+      <p>
+        I am a <strong>Lecturer and Robotics Researcher</strong> at Telkom University in Surabaya, Indonesia,
+        within the Department of Computer Engineering, Faculty of Electronics Engineering.
+        I hold a <strong>Ph.D. from Tokyo Metropolitan University</strong> in Mechanical Systems Engineering,
+        where I gained extensive experience as a research assistant under the Kubota Naoyuki Lab.
+      </p>
+      <p>
+        My research spans a variety of robotics fields including <strong>human-robot interaction</strong>,
+        robotic manipulation, autonomous navigation, aerial robotics, and rehabilitation robotics.
+        During my time in Japan, I actively collaborated with leading universities and research institutes
+        as part of the prestigious <strong>Moonshot Project</strong> under JST (Japan Science and Technology Agency).
+      </p>
+      <p>
+        My current research focuses on robotics and digital twin technologies, with particular interests in mobile robot
+        navigation, robotic manipulation, and topological semantic mapping. I work on developing intelligent robotic systems
+        that can perceive, understand, and interact with complex environments, while leveraging digital twin frameworks to
+        enhance simulation, monitoring, and real-world deployment. My research aims to bridge perception, decision-making,
+        and control to enable more adaptive, autonomous, and context-aware robotic applications.
+      </p>
+    </div>
+  </section>
+
+  <!-- RESEARCH PROJECTS -->
+  <section>
+    <h2 class="section-title"><span class="s-icon">◈</span> Research Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <img src="images/robot_hsr.jpg" alt="Toyota HSR Robot"
+             onerror="this.style.background='#e8ecf4'; this.style.minHeight='210px';">
+        <div class="project-card-body">
+          <span class="project-tag">Home-Care Robotics · 2020–2024</span>
+          <h4>Toyota HSR – Human Support Robot</h4>
+          <p>Developed navigation, manipulation, and activity recognition systems for the Toyota HSR as part of the JST Moonshot Project at Tokyo Metropolitan University.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/robot_wheelchair.jpg" alt="Autonomous Wheelchair Robot"
+             onerror="this.style.background='#e8ecf4'; this.style.minHeight='210px';">
+        <div class="project-card-body">
+          <span class="project-tag">Rehabilitation Robotics · 2022–2024</span>
+          <h4>Autonomous Intelligent Wheelchair</h4>
+          <p>Designed and implemented an autonomous navigation system for an intelligent wheelchair robot equipped with depth cameras and LiDAR sensors for obstacle avoidance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <h2 class="section-title"><span class="s-icon">◈</span> Education</h2>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">Ph.D. in Mechanical Systems Engineering</div>
+          <div class="edu-school">Kubota Naoyuki Lab · Tokyo Metropolitan University (東京都立大学), Japan</div>
+          <div class="edu-year">2020 – 2024</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">Research Student in Mechanical Systems Engineering</div>
+          <div class="edu-school">Tokyo Metropolitan University, Japan</div>
+          <div class="edu-year">2018 – 2020</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">M.Phil. in Control Systems Engineering</div>
+          <div class="edu-school">Universiti Teknologi Malaysia (MJIIT), Malaysia</div>
+          <div class="edu-year">2014 – 2017</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">BASc in Mechatronics Engineering</div>
+          <div class="edu-school">Politeknik Elektronika Negeri Surabaya (PENS), Indonesia</div>
+          <div class="edu-year">2013</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section>
+    <h2 class="section-title"><span class="s-icon">◈</span> Publications</h2>
+    <p style="margin-bottom:18px; font-size:0.85rem; color:#1e1e1e;">
+      See also: <a href="https://scholar.google.com/citations?user=zGrZthcAAAAJ&hl=en" target="_blank" style="color:#1e1e1e; text-decoration:underline;">Google Scholar</a>
+    </p>
+    <div class="pub-list">
+      <div class="pub-card">
+        <span class="pub-badge journal">Journal 2025</span>
+        <div class="pub-title">Optimizing Quadrotor Stability: RBF Neural Network Control with Performance Bound for Center of Gravity Uncertainty</div>
+        <div class="pub-authors"><strong>M. Yani</strong>, F. Ardilla, A. R. A. Besari, A. A. Saputra, N. Kubota, Z. H. Ismail</div>
+        <div class="pub-venue">JOIV: Int. J. on Informatics Visualization, vol. 9, no. 3, pp. 1235–1243, 2025</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge journal">Journal 2025</span>
+        <div class="pub-title">Robot Logistik Berbasis IoT untuk Pengiriman Obat dan Monitoring Pasien Secara Otomatis</div>
+        <div class="pub-authors"><strong>M. Yani</strong>, A. Faricha, S. T. Rasmana, et al.</div>
+        <div class="pub-venue">Jurnal Algoritma, vol. 22, no. 1, pp. 789–800, 2025</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge journal">Journal 2025</span>
+        <div class="pub-title">Optimizing YOLOv8 for Enhanced Melon Maturity Detection with Attention Mechanisms</div>
+        <div class="pub-authors">U. Umar, T. A. Sardjono, H. Kusuma, <strong>M. Yani</strong>, H. Widyantara</div>
+        <div class="pub-venue">JOIV: Int. J. on Informatics Visualization, vol. 9, no. 3, pp. 947–956, 2025</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge journal">Journal 2023</span>
+        <div class="pub-title">An Efficient Activity Recognition for Homecare Robots from Multi-Modal Communication Dataset</div>
+        <div class="pub-authors"><strong>M. Yani</strong>, N. Yamada, C. Z. Siow, N. Kubota</div>
+        <div class="pub-venue">Int. J. of Advances in Intelligent Informatics, vol. 9, no. 1, pp. 39–50, 2023</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge journal">Journal 2023</span>
+        <div class="pub-title">Investigation of Obstacle Prediction Network for Improving Home-Care Robot Navigation Performance</div>
+        <div class="pub-authors"><strong>M. Yani</strong>, A. A. Saputra, W. H. Chin, N. Kubota</div>
+        <div class="pub-venue">J. of Robotics and Mechatronics, vol. 35, no. 2, pp. 510–520, 2023</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge journal">Journal 2022</span>
+        <div class="pub-title">Topological Mapping Based on Perceiving-Acting Cycle in Sharing Cognitive Environments for Robot Partners</div>
+        <div class="pub-authors">F. Ardilla, <strong>M. Yani</strong>, A. A. Saputra, W. Chin, N. Kubota</div>
+        <div class="pub-venue">Communications in Information and Systems, vol. 22, no. 4, pp. 431–458, 2022</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge conf">Conference 2022</span>
+        <div class="pub-title">Topological Based Environmental Reconstruction for Efficient Multi-Level Control of Robot Locomotion</div>
+        <div class="pub-authors">A. A. Saputra, C. W. Hong, <strong>M. Yani</strong>, F. Ardilla, et al.</div>
+        <div class="pub-venue">IEEE Int. Electronics Symp. (IES), 2022, pp. 491–496</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge conf">Conference 2021</span>
+        <div class="pub-title">A Study of Human State Pattern Acquisition Method for Partner Robots</div>
+        <div class="pub-authors">N. Yamada, <strong>M. Yani</strong>, N. Kubota</div>
+        <div class="pub-venue">IEEE 32nd Int. Symp. on Micro-NanoMechatronics and Human Science (MHS), 2021</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge conf">Conference 2021</span>
+        <div class="pub-title">Gradient-Free Deep Q-Networks Reinforcement Learning: Benchmark and Evaluation</div>
+        <div class="pub-authors"><strong>M. Yani</strong>, F. Ardilla, A. A. Saputra, N. Kubota</div>
+        <div class="pub-venue">IEEE Symp. Series on Computational Intelligence (SSCI), Dec. 2021</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge conf">Conference 2020</span>
+        <div class="pub-title">Interactive Adaptation of Hand-over Motion by a Robot Partner for Comfort of Receiving</div>
+        <div class="pub-authors">N. Yamada, <strong>M. Yani</strong>, N. Kubota</div>
+        <div class="pub-venue">IEEE Symp. Series on Computational Intelligence (SSCI), Dec. 2020, pp. 1899–1904</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge conf">Conference 2020</span>
+        <div class="pub-title">Ecological-Inspired System Design for Safety Manipulation Strategy in Home-Care Robot</div>
+        <div class="pub-authors"><strong>M. Yani</strong>, A. R. A. Besari, N. Yamada, N. Kubota</div>
+        <div class="pub-venue">IEEE Int. Symp. on Community-centric Systems (CcS), Sep. 2020</div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-badge conf">Conference 2015</span>
+        <div class="pub-title">Attitude Control with a Region-Based Method for an Unmanned Aerial Vehicle</div>
+        <div class="pub-authors">M. B. Mokhar, Z. H. Ismail, <strong>M. Yani</strong>, M. W. Dunnigan</div>
+        <div class="pub-venue">10th Asian Control Conf. (ASCC), Sep. 2015</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section>
+    <h2 class="section-title"><span class="s-icon">◈</span> Awards & Scholarships</h2>
+    <div class="award-list">
+      <div class="award-item">
+        <div class="award-year">2020</div>
+        <div class="award-text">
+          <strong>MEXT Scholarship – Ph.D. Program</strong><br>
+          Ministry of Education, Culture, Sports, Science and Technology of Japan · Tokyo Metropolitan University
+        </div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">2018</div>
+        <div class="award-text">
+          <strong>MEXT Scholarship – Non-degree Research Student Program</strong><br>
+          Ministry of Education, Culture, Sports, Science and Technology of Japan · Tokyo Metropolitan University
+        </div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">2014</div>
+        <div class="award-text">
+          <strong>Japan ASEAN-Integration Fund (JAIF) Scholarship</strong><br>
+          M.Phil. in Electronics Systems Engineering · Universiti Teknologi Malaysia – Malaysia Japan International Institute of Technology
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHING -->
+  <section>
+    <h2 class="section-title"><span class="s-icon">◈</span> Teaching</h2>
+    <div class="teach-grid">
+      <div class="teach-card">
+        <div class="semester">2023/2024 Even Semester</div>
+        <h4>Robotics</h4>
+        <p>Basic robotics including kinematics, dynamics, navigation, and probabilistic methods for electronics and computer engineering students.</p>
+      </div>
+      <div class="teach-card">
+        <div class="semester">2024/2025 Odd Semester</div>
+        <h4>Systems Analysis and Design</h4>
+        <p>Modelling systems and applying analysis to create systems that meet user demands.</p>
+      </div>
+      <div class="teach-card">
+        <div class="semester">2024/2025 Odd Semester</div>
+        <h4>Artificial Intelligence</h4>
+        <p>Basic introduction to AI and fundamental machine learning concepts for computer engineering students.</p>
+      </div>
+      <div class="teach-card">
+        <div class="semester">2024/2025 Odd Semester</div>
+        <h4>Real-Time Operating Systems (RTOS)</h4>
+        <p>Using ESP32 module: task scheduling, delay management, queue handling, and memory management.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPLOYMENT HISTORY -->
+  <section>
+    <h2 class="section-title"><span class="s-icon">◈</span> Employment History</h2>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">Researcher & Consultant – Portable ECG Development</div>
+          <div class="edu-school">Tetra Solusi Perdana Co. Ltd</div>
+          <div class="edu-year">2024 – 2025</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">Lecturer – Department of Computer Engineering</div>
+          <div class="edu-school">Telkom University, Surabaya Campus, Indonesia</div>
+          <div class="edu-year">2018 – 2025</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">Research Assistant</div>
+          <div class="edu-school">Tokyo Metropolitan University, Japan</div>
+          <div class="edu-year">2023 – 2024</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">Steering Committee Member – Toyota HSR Research Group</div>
+          <div class="edu-school">Representative of Tokyo Metropolitan University</div>
+          <div class="edu-year">2022 – 2024</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div class="edu-body">
+          <div class="edu-degree">Firmware Design Engineer</div>
+          <div class="edu-school">Indonesia Epson Industry</div>
+          <div class="edu-year">2014</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Mohamad Yani, Ph.D · Telkom University, Surabaya, Indonesia</p>
+  </footer>
+
+</main>
+</body>
+</html>
